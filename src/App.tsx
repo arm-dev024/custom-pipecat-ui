@@ -1,10 +1,10 @@
+import { PipecatClientAudio, usePipecatClient } from "@pipecat-ai/client-react";
 import {
   ConnectButton,
   ConversationPanel,
   usePipecatConnectionState,
   UserAudioControl,
 } from "@pipecat-ai/voice-ui-kit";
-import { PipecatClientAudio, usePipecatClient } from "@pipecat-ai/client-react";
 import { useEffect } from "react";
 
 const App = () => {
@@ -17,21 +17,14 @@ const App = () => {
   }, [client]);
 
   const handleConnect = () => {
-    client
-      ?.connect({
+    if (isConnected) {
+      client?.disconnect();
+    } else {
+      client?.connect({
         audio: true,
         video: false,
-      })
-      .then(() => {
-        console.log("Connected");
-      })
-      .catch((error) => {
-        console.log(error);
       });
-    // client?.startBotAndConnect({
-    //   endpoint: "http://52.24.239.187:8000/api/offer",
-    //   timeout: 10000,
-    // });
+    }
   };
 
   return (
@@ -39,7 +32,7 @@ const App = () => {
       <ConnectButton onClick={handleConnect} />
       <PipecatClientAudio />
       {isConnected && (
-        <div>
+        <div style={{ height: "calc(100vh - 100px)" }}>
           <UserAudioControl />
           <ConversationPanel />
         </div>
