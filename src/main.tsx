@@ -7,6 +7,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
+const pipecatEndpoint = import.meta.env.VITE_PIPECAT_ENDPOINT;
+
 const client = new PipecatClient({
   // transport: new DailyTransport(),
   transport: new SmallWebRTCTransport({
@@ -16,7 +18,7 @@ const client = new PipecatClient({
       },
     ],
     webrtcRequestParams: {
-      endpoint: "http://localhost:8000/api/offer",
+      endpoint: `${pipecatEndpoint}/api/offer`,
       timeout: 10000,
     },
   }),
