@@ -11,6 +11,7 @@ export default defineConfig({
     }),
   ],
   server: {
-    allowedHosts: ["52.24.239.187"],
+    host: true,
+    port: 3000,
   },
 });
